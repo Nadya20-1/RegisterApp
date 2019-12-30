@@ -3,17 +3,23 @@ package com.example.registerloginapp;
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
+import android.content.pm.ActivityInfo;
 import android.content.res.ColorStateList;
+import android.content.res.Configuration;
+import android.content.res.Resources;
 import android.content.res.XmlResourceParser;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 
+import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 
 import android.text.InputType;
 import android.text.method.HideReturnsTransformationMethod;
 import android.text.method.PasswordTransformationMethod;
+import android.util.DisplayMetrics;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -22,28 +28,37 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.util.Locale;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 
-public class LoginFragment extends Fragment implements View.OnClickListener {
+public class LoginFragment extends Fragment implements View.OnClickListener{
 
-    private static View view;
-    private static EditText email, password;
-    private static Button loginButton;
-    private static TextView forgotPassword, anyAccount;
+    private  View view;
+    private  EditText email, password;
+    private  Button loginButton;
+    private  TextView forgotPassword, anyAccount;
     private static FragmentManager fragmentManager;
+    private Button btn_ru;
 
     public LoginFragment() {
         // Required empty public constructor
     }
-
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
+    public View onCreateView(LayoutInflater inflater,  ViewGroup container,
+                              Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.fragment_login, container, false);
         initViews();
         setListeners();
+        btn_ru = (Button) view.findViewById(R.id.button_ru);
+
+        btn_ru.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                new MainActivity().setAppLocale("ru");
+            }
+        });
         return view;
     }
 
@@ -73,10 +88,17 @@ public class LoginFragment extends Fragment implements View.OnClickListener {
     }
 
     @Override
+    public void onResume() {
+        getActivity().setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
+        super.onResume();
+    }
+
+
+    @Override
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.login_button:
-                if (checkValidation() == true);
+                if (checkValidation());
                 break;
 
             case R.id.login_forget_password:
@@ -93,8 +115,12 @@ public class LoginFragment extends Fragment implements View.OnClickListener {
                         .replace(R.id.frameContainer, new RegisterFragment(),
                                 Utils.RegisterFragment).commit();
                 break;
+          // case R.id.button_ru:
+           //  new MainActivity().setAppLocale("ru") ;
+
         }
     }
+
 
     private boolean checkValidation() {
         boolean valid = true;
@@ -122,5 +148,14 @@ public class LoginFragment extends Fragment implements View.OnClickListener {
                     .show();
         return valid;
     }
+
+    public void getArguments(Bundle bundle) {
+
+        String emaill = bundle.getString("Email");
+
+        TextView emaillText = (TextView) view.findViewById(R.id.login_any_account);
+        emaillText.setText(emaill);
+    }
+
 }
 

@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">Login App</string>
+    <string name="sign_in">Уже есть аккаунт? Войти в систему</string>
+    <string name="account_sign_up">Нет аккаунта? Зарегистрироваться</string>
+    <string name="login">Логин</string>
+    <string name="password">Пароль</string>
+    <string name="e_mail">Почта</string>
+    <string name="forget_password">Забыли свой пароль</string>
+    <string name="mobile_number">Мобильный номер</string>
+    <string name="register">Регистрация</string>
+    <string name="reset_password">Сброс пароля</string>
+    <string name="confirm_password">Подтвердите пароль</string>
+    <string name="username">Имя пользователя</string>
+    <string name="button_login">Логин</string>
+    <string name="button_sign_up">Зарегистрироваться</string>
+    <string name="button_en">Анг. версия</string>
+    <string name="button_ru">Рус. версия</string>
+</resources>

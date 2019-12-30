@@ -15,6 +15,6 @@
     <string name="username">Username</string>
     <string name="button_login">Login</string>
     <string name="button_sign_up">Sign up</string>
-    <string name="button_en">english ver.</string>
-    <string name="button_ru">russian ver.</string>
+    <string name="button_en">English ver.</string>
+    <string name="button_ru">Russian ver.</string>
 </resources>

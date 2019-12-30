@@ -2,11 +2,13 @@ package com.example.registerloginapp;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
+import android.content.pm.ActivityInfo;
 import android.content.res.ColorStateList;
 import android.content.res.XmlResourceParser;
 import android.net.Uri;
 import android.os.Bundle;
 
+import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
@@ -25,10 +27,10 @@ import java.util.regex.Pattern;
 
 
 public class RegisterFragment extends Fragment implements OnClickListener {
-    private static View view;
-    private static EditText fullName, email, mobileNumber, password;
-    private static TextView signUp;
-    private static Button signUpButton;
+    private  View view;
+    private  EditText fullName, email, mobileNumber, password;
+    private  TextView signUp;
+    private  Button signUpButton;
 
     private EditText emailR, emailL;
     private Button buttonEmail;
@@ -38,13 +40,14 @@ public class RegisterFragment extends Fragment implements OnClickListener {
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
+    public View onCreateView(LayoutInflater inflater,ViewGroup container,
+                              Bundle savedInstanceState) {
 
         view =  inflater.inflate(R.layout.fragment_register, container, false);
         initViews();
         setListeners();
         return view;
+
     }
 
     private void initViews() {
@@ -73,10 +76,16 @@ public class RegisterFragment extends Fragment implements OnClickListener {
     public void onStart() {
         super.onStart();
 
-        emailR = (EditText)getActivity().findViewById(R.id.register_email);
-        emailL = (EditText)getActivity().findViewById(R.id.login_email);
+       // emailR = (EditText)getActivity().findViewById(R.id.register_email);
+        //emailL = (EditText)getActivity().findViewById(R.id.login_email);
 
-        signUpButton.setOnClickListener(this);
+        //signUpButton.setOnClickListener(this);
+    }
+
+    @Override
+    public void onResume() {
+        getActivity().setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
+        super.onResume();
     }
 
     @Override
@@ -85,6 +94,26 @@ public class RegisterFragment extends Fragment implements OnClickListener {
             case R.id.register_button:
                 if (checkValidation() == true) { new MainActivity().replaceLoginFragment();
                   //  emailL.setText(emailR.getText());
+                    emailR = (EditText) view.findViewById(R.id.register_email);
+                    signUpButton = (Button) view.findViewById(R.id.register_button);
+                    signUpButton.setOnClickListener(new View.OnClickListener(){
+                        @Override
+                        public void onClick(View v) {
+                            String emailr = emailR.getText().toString();
+
+                            Bundle bundle = new Bundle();
+                            bundle.putString("Email",emailr);
+
+                            FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
+                            FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+
+                            LoginFragment loginFragment = new LoginFragment();
+                            loginFragment.getArguments(bundle);
+
+                            fragmentTransaction.replace(R.id.frameContainer,loginFragment);
+                            fragmentTransaction.commit();
+                        }
+                    });
                 }
                 break;
 

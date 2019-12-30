@@ -2,6 +2,7 @@ package com.example.registerloginapp;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
+import android.content.pm.ActivityInfo;
 import android.content.res.ColorStateList;
 import android.content.res.XmlResourceParser;
 import android.net.Uri;
@@ -23,10 +24,10 @@ import java.util.regex.Pattern;
 
 public class ResetPasswordFragment extends Fragment implements View.OnClickListener {
 
-    private static View view;
-    private static EditText email, password,confirmPassword;
-    private static Button loginButton;
-    private static TextView  anyAccount;
+    private  View view;
+    private  EditText email, password,confirmPassword;
+    private  Button loginButton;
+    private  TextView  anyAccount;
 
     public ResetPasswordFragment() {
         // Required empty public constructor
@@ -65,6 +66,12 @@ public class ResetPasswordFragment extends Fragment implements View.OnClickListe
     }
 
     @Override
+    public void onResume() {
+        getActivity().setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
+        super.onResume();
+    }
+
+    @Override
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.confirm_button:
@@ -72,7 +79,7 @@ public class ResetPasswordFragment extends Fragment implements View.OnClickListe
                 break;
 
             case R.id.confirm_any_account:
-                new MainActivity().replaceLoginFragment();
+                new MainActivity().replaceRegisterFragment();
                 break;
         }
     }

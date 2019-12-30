@@ -4,7 +4,7 @@
     android:layout_width="fill_parent"
     android:layout_height="wrap_content"
     android:background="#ffffff"
-    android:padding="5dp" >
+    android:padding="@dimen/spacing_xxsmall" >
 
     <TextView
         android:id="@+id/toast_error"
@@ -12,10 +12,11 @@
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
         android:drawableLeft="@drawable/error"
-        android:drawablePadding="10dp"
+        android:drawableStart="@drawable/error"
+        android:drawablePadding="@dimen/spacing_xnormal"
         android:gravity="center_vertical"
-        android:padding="5dp"
+        android:padding="@dimen/spacing_xxsmall"
         android:textColor="#c0392b"
-        android:textSize="15sp" />
+        android:textSize="@dimen/text_size_xsmall" />
 
 </RelativeLayout>

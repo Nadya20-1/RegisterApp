@@ -1,14 +1,20 @@
 package com.example.registerloginapp;
 
-import androidx.appcompat.app.AppCompatActivity;
+
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentActivity;
 import androidx.fragment.app.FragmentManager;
-import androidx.fragment.app.FragmentTransaction;
 
+
+
+import android.content.res.Configuration;
+import android.content.res.Resources;
+import android.os.Build;
 import android.os.Bundle;
-import android.view.View;
-import android.widget.EditText;
+import android.util.DisplayMetrics;
+
+import java.util.Locale;
+
 
 public class MainActivity extends FragmentActivity {
     private static FragmentManager fragmentManager;
@@ -18,6 +24,7 @@ public class MainActivity extends FragmentActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         fragmentManager = getSupportFragmentManager();
+        setAppLocale("en");
 
         if (savedInstanceState == null) {
             fragmentManager
@@ -34,6 +41,13 @@ public class MainActivity extends FragmentActivity {
                         Utils.LoginFragment).commit();
     }
 
+    protected void replaceRegisterFragment() {
+        fragmentManager
+                .beginTransaction()
+                .replace(R.id.frameContainer, new RegisterFragment(),
+                        Utils.RegisterFragment).commit();
+    }
+
     @Override
     public void onBackPressed() {
 
@@ -45,12 +59,26 @@ public class MainActivity extends FragmentActivity {
         if (SignUpFragment != null)
             replaceLoginFragment();
         else if (ForgotPasswordFragment != null)
-            replaceLoginFragment();
+            replaceRegisterFragment();
         else
             super.onBackPressed();
     }
 
-   // public void onClickEmail(View view) {
+
+     public void setAppLocale(String localeCode)
+   {
+       Resources res = getResources();
+       DisplayMetrics dm = res.getDisplayMetrics();
+       Configuration conf = res.getConfiguration();
+       if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR1) {
+           conf.setLocale(new Locale(localeCode.toLowerCase()));
+       }
+       else {conf.locale = new Locale(localeCode.toLowerCase());}
+       res.updateConfiguration(conf,dm);
+   }
+
+
+    // public void onClickEmail(View view) {
    //     EditText editText = (EditText) findViewById(R.id.register_email);
    //     EditText editText1 = (EditText) findViewById(R.id.login_email);
    //     editText1.setText(editText.getText());

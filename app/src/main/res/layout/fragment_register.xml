@@ -1,20 +1,25 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/activity_main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+<FrameLayout
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_height="wrap_content"
     tools:context=".RegisterFragment">
 
     <TextView
         android:id="@+id/tv_logo"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="25dp"
+        android:layout_gravity="end"
         android:layout_marginTop="60dp"
         android:layout_marginBottom="5dp"
         android:text="@string/register"
         android:textAlignment="center"
-        android:textSize="50sp" />
+        android:textSize="@dimen/text_size_xxlarge" />
 
     <EditText
         android:id="@+id/register_name"
@@ -27,8 +32,8 @@
         android:background="@drawable/et_custom"
         android:hint="@string/username"
         android:inputType="textPersonName"
-        android:padding="15dp"
-        android:textSize="15sp"
+        android:padding="@dimen/spacing_normal"
+        android:textSize="@dimen/text_size_normal"
         android:importantForAutofill="no" />
 
     <EditText
@@ -43,8 +48,8 @@
         android:hint="@string/mobile_number"
         android:importantForAutofill="no"
         android:inputType="phone"
-        android:padding="15dp"
-        android:textSize="15sp"
+        android:padding="@dimen/spacing_normal"
+        android:textSize="@dimen/text_size_normal"
         />
 
     <EditText
@@ -56,10 +61,10 @@
         android:layout_marginLeft="20dp"
         android:layout_marginRight="20dp"
         android:layout_marginBottom="10dp"
-        android:padding="15dp"
+        android:padding="@dimen/spacing_normal"
         android:inputType="textEmailAddress"
         android:background="@drawable/et_custom"
-        android:textSize="15sp"
+        android:textSize="@dimen/text_size_normal"
         android:importantForAutofill="no"/>
 
 
@@ -72,10 +77,10 @@
         android:layout_marginLeft="20dp"
         android:layout_marginRight="20dp"
         android:layout_marginBottom="10dp"
-        android:padding="15dp"
+        android:padding="@dimen/spacing_normal"
         android:inputType="textPassword"
         android:background="@drawable/et_custom"
-        android:textSize="15sp"
+        android:textSize="@dimen/text_size_normal"
         android:importantForAutofill="no"/>
 
     <RelativeLayout
@@ -89,7 +94,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginLeft="20dp"
-            android:layout_marginTop="60dp"
+            android:layout_marginTop="40dp"
             android:layout_marginRight="20dp"
             android:background="@drawable/btn_custom"
             android:text="@string/button_sign_up"
@@ -97,13 +102,15 @@
 
         <TextView
             android:id="@+id/register_any_account"
-            android:layout_marginLeft="230dp"
-            android:layout_marginTop="120dp"
-            android:layout_width="wrap_content"
+            android:gravity="end"
+            android:layout_alignRight="@id/register_button"
+            android:layout_alignEnd="@id/register_button"
+            android:layout_marginTop="100dp"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="@string/sign_in" />
     </RelativeLayout>
 
 
 </FrameLayout>
-
+    </ScrollView>
