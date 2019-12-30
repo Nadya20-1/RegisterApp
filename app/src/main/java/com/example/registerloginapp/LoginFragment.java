@@ -115,9 +115,6 @@ public class LoginFragment extends Fragment implements View.OnClickListener{
                         .replace(R.id.frameContainer, new RegisterFragment(),
                                 Utils.RegisterFragment).commit();
                 break;
-          // case R.id.button_ru:
-           //  new MainActivity().setAppLocale("ru") ;
-
         }
     }
 
