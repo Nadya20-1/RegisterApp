@@ -40,7 +40,6 @@ public class LoginFragment extends Fragment implements View.OnClickListener{
     private  Button loginButton;
     private  TextView forgotPassword, anyAccount;
     private static FragmentManager fragmentManager;
-    private Button btn_ru;
 
     public LoginFragment() {
         // Required empty public constructor
@@ -51,15 +50,19 @@ public class LoginFragment extends Fragment implements View.OnClickListener{
         view = inflater.inflate(R.layout.fragment_login, container, false);
         initViews();
         setListeners();
-        btn_ru = (Button) view.findViewById(R.id.button_ru);
-
-        btn_ru.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                new MainActivity().setAppLocale("ru");
-            }
-        });
+        EditText text = (EditText) view.findViewById(R.id.login_email);
+        if(getArguments() != null) {
+            String result = getArguments().getString("Email");
+            text.setText(String.valueOf(result));
+        } else {
+            text.setText("");
+        }
         return view;
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
     }
 
     private void initViews() {
@@ -150,7 +153,7 @@ public class LoginFragment extends Fragment implements View.OnClickListener{
 
         String emaill = bundle.getString("Email");
 
-        TextView emaillText = (TextView) view.findViewById(R.id.login_any_account);
+        EditText emaillText = (EditText) view.findViewById(R.id.login_email);
         emaillText.setText(emaill);
     }
 

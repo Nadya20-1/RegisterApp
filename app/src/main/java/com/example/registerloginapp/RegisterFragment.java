@@ -32,8 +32,7 @@ public class RegisterFragment extends Fragment implements OnClickListener {
     private  TextView signUp;
     private  Button signUpButton;
 
-    private EditText emailR, emailL;
-    private Button buttonEmail;
+    private EditText emailR;
 
     public RegisterFragment() {
         // Required empty public constructor
@@ -93,27 +92,22 @@ public class RegisterFragment extends Fragment implements OnClickListener {
         switch (v.getId()) {
             case R.id.register_button:
                 if (checkValidation() == true) { new MainActivity().replaceLoginFragment();
-                  //  emailL.setText(emailR.getText());
                     emailR = (EditText) view.findViewById(R.id.register_email);
-                    signUpButton = (Button) view.findViewById(R.id.register_button);
-                    signUpButton.setOnClickListener(new View.OnClickListener(){
-                        @Override
-                        public void onClick(View v) {
-                            String emailr = emailR.getText().toString();
+                    String emailr = emailR.getText().toString();
 
-                            Bundle bundle = new Bundle();
-                            bundle.putString("Email",emailr);
+                    Bundle bundle = new Bundle();
+                    bundle.putString("Email",emailr);
 
-                            FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
-                            FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
 
-                            LoginFragment loginFragment = new LoginFragment();
-                            loginFragment.getArguments(bundle);
+                    FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
+                    FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
 
-                            fragmentTransaction.replace(R.id.frameContainer,loginFragment);
-                            fragmentTransaction.commit();
-                        }
-                    });
+                    LoginFragment loginFragment = new LoginFragment();
+                    loginFragment.setArguments(bundle);
+
+                    fragmentTransaction.replace(R.id.frameContainer,loginFragment);
+                    fragmentTransaction.commit();
+
                 }
                 break;
 

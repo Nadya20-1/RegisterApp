@@ -6,7 +6,7 @@ import androidx.fragment.app.FragmentActivity;
 import androidx.fragment.app.FragmentManager;
 
 
-
+import android.content.Intent;
 import android.content.res.Configuration;
 import android.content.res.Resources;
 import android.os.Build;
@@ -77,12 +77,14 @@ public class MainActivity extends FragmentActivity {
        res.updateConfiguration(conf,dm);
    }
 
+    @Override
+    public void recreate() {
+        Intent intent = getIntent();
+        finish();
+        startActivity(intent);
+        super.recreate();
+    }
 
-    // public void onClickEmail(View view) {
-   //     EditText editText = (EditText) findViewById(R.id.register_email);
-   //     EditText editText1 = (EditText) findViewById(R.id.login_email);
-   //     editText1.setText(editText.getText());
-   // }
 }
 
 

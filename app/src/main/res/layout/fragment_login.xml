@@ -93,27 +93,6 @@
             android:focusable="true"
             android:text="@string/account_sign_up" />
 
-        <Button
-            android:id="@+id/button_en"
-            android:layout_width="172dp"
-            android:layout_height="32dp"
-            android:layout_alignRight="@id/login_button"
-            android:layout_alignEnd="@id/login_button"
-            android:layout_marginTop="180dp"
-            android:background="@drawable/btn_custom"
-            android:text="@string/button_en"
-            android:textColor="@android:color/white" />
-
-        <Button
-            android:id="@+id/button_ru"
-            android:layout_width="172dp"
-            android:layout_height="32dp"
-            android:layout_alignRight="@id/login_button"
-            android:layout_alignEnd="@id/login_button"
-            android:layout_marginTop="220dp"
-            android:background="@drawable/btn_custom"
-            android:text="@string/button_ru"
-            android:textColor="@android:color/white" />
 
     </RelativeLayout>
 
