@@ -1,25 +1,15 @@
 package com.example.registerloginapp;
 
 import android.annotation.SuppressLint;
-import android.content.Context;
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.content.res.ColorStateList;
-import android.content.res.Configuration;
-import android.content.res.Resources;
 import android.content.res.XmlResourceParser;
-import android.net.Uri;
-import android.os.Build;
 import android.os.Bundle;
 
-import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 
-import android.text.InputType;
-import android.text.method.HideReturnsTransformationMethod;
-import android.text.method.PasswordTransformationMethod;
-import android.util.DisplayMetrics;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -28,7 +18,7 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import java.util.Locale;
+import java.util.Objects;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -50,7 +40,7 @@ public class LoginFragment extends Fragment implements View.OnClickListener{
         view = inflater.inflate(R.layout.fragment_login, container, false);
         initViews();
         setListeners();
-        EditText text = (EditText) view.findViewById(R.id.login_email);
+        EditText text = view.findViewById(R.id.login_email);
         if(getArguments() != null) {
             String result = getArguments().getString("Email");
             text.setText(String.valueOf(result));
@@ -66,13 +56,14 @@ public class LoginFragment extends Fragment implements View.OnClickListener{
     }
 
     private void initViews() {
-        fragmentManager = getActivity().getSupportFragmentManager();
+        fragmentManager = Objects.requireNonNull(getActivity()).getSupportFragmentManager();
 
-        email = (EditText) view.findViewById(R.id.login_email);
-        password = (EditText) view.findViewById(R.id.login_password);
-        loginButton = (Button) view.findViewById(R.id.login_button);
-        forgotPassword = (TextView) view.findViewById(R.id.login_forget_password);
-        anyAccount = (TextView) view.findViewById(R.id.login_any_account);
+
+        email = view.findViewById(R.id.login_email);
+        password = view.findViewById(R.id.login_password);
+        loginButton = view.findViewById(R.id.login_button);
+        forgotPassword = view.findViewById(R.id.login_forget_password);
+        anyAccount = view.findViewById(R.id.login_any_account);
 
         @SuppressLint("ResourceType") XmlResourceParser xrp = getResources().getXml(R.drawable.text_selector);
         try {
@@ -80,7 +71,7 @@ public class LoginFragment extends Fragment implements View.OnClickListener{
                     xrp);
             forgotPassword.setTextColor(csl);
             anyAccount.setTextColor(csl);
-        } catch (Exception e) {
+        } catch (Exception ignored) {
         }
     }
 
@@ -92,7 +83,7 @@ public class LoginFragment extends Fragment implements View.OnClickListener{
 
     @Override
     public void onResume() {
-        getActivity().setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
+        Objects.requireNonNull(getActivity()).setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
         super.onResume();
     }
 
@@ -101,7 +92,13 @@ public class LoginFragment extends Fragment implements View.OnClickListener{
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.login_button:
-                if (checkValidation());
+                if (checkValidation()) {
+                    fragmentManager
+                            .beginTransaction()
+                            .replace(R.id.frameContainer,
+                                    new LoginFragment(),
+                                    Utils.LoginFragment).commit();
+                }
                 break;
 
             case R.id.login_forget_password:
@@ -132,15 +129,15 @@ public class LoginFragment extends Fragment implements View.OnClickListener{
 
         if (getEmailId.equals("") || getEmailId.length() == 0
                 || getPassword.equals("") || getPassword.length() == 0) {
-            new CustomToast().Show_Toast(getActivity(), view,
+            new CustomToast().Show_Toast(Objects.requireNonNull(getActivity()), view,
                     "Enter both fields");
             valid = false;        }
         else if (!m.find())  {
-            new CustomToast().Show_Toast(getActivity(), view,
+            new CustomToast().Show_Toast(Objects.requireNonNull(getActivity()), view,
                     "Email is Incorrect");
             valid = false;     }
         else if (getPassword.length() < 6) {
-            new CustomToast().Show_Toast(getActivity(), view,
+            new CustomToast().Show_Toast(Objects.requireNonNull(getActivity()), view,
                     "Password must be at least 6 symbols");
              valid = false; }
         else
@@ -149,13 +146,6 @@ public class LoginFragment extends Fragment implements View.OnClickListener{
         return valid;
     }
 
-    public void getArguments(Bundle bundle) {
-
-        String emaill = bundle.getString("Email");
-
-        EditText emaillText = (EditText) view.findViewById(R.id.login_email);
-        emaillText.setText(emaill);
-    }
 
 }
 

@@ -70,7 +70,7 @@ public class MainActivity extends FragmentActivity {
        Resources res = getResources();
        DisplayMetrics dm = res.getDisplayMetrics();
        Configuration conf = res.getConfiguration();
-       if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR1) {
+       if (Build.VERSION.SDK_INT >= 19) {
            conf.setLocale(new Locale(localeCode.toLowerCase()));
        }
        else {conf.locale = new Locale(localeCode.toLowerCase());}

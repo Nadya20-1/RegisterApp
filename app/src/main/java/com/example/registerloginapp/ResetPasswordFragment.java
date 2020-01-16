@@ -1,11 +1,9 @@
 package com.example.registerloginapp;
 
 import android.annotation.SuppressLint;
-import android.content.Context;
 import android.content.pm.ActivityInfo;
 import android.content.res.ColorStateList;
 import android.content.res.XmlResourceParser;
-import android.net.Uri;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
@@ -18,6 +16,7 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.util.Objects;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -45,18 +44,18 @@ public class ResetPasswordFragment extends Fragment implements View.OnClickListe
 
     private void initViews() {
 
-        email = (EditText) view.findViewById(R.id.confirm_email);
-        password = (EditText) view.findViewById(R.id.confirm_password);
-        loginButton = (Button) view.findViewById(R.id.confirm_button);
-        confirmPassword = (EditText) view.findViewById(R.id.confirm_reset_password);
-        anyAccount = (TextView) view.findViewById(R.id.confirm_any_account);
+        email = view.findViewById(R.id.confirm_email);
+        password = view.findViewById(R.id.confirm_password);
+        loginButton = view.findViewById(R.id.confirm_button);
+        confirmPassword = view.findViewById(R.id.confirm_reset_password);
+        anyAccount = view.findViewById(R.id.confirm_any_account);
 
         @SuppressLint("ResourceType") XmlResourceParser xrp = getResources().getXml(R.drawable.text_selector);
         try {
             ColorStateList csl = ColorStateList.createFromXml(getResources(),
                     xrp);
             anyAccount.setTextColor(csl);
-        } catch (Exception e) {
+        } catch (Exception ignored) {
         }
     }
 
@@ -67,7 +66,7 @@ public class ResetPasswordFragment extends Fragment implements View.OnClickListe
 
     @Override
     public void onResume() {
-        getActivity().setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
+        Objects.requireNonNull(getActivity()).setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
         super.onResume();
     }
 
@@ -75,7 +74,7 @@ public class ResetPasswordFragment extends Fragment implements View.OnClickListe
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.confirm_button:
-                if (checkValidation() == true) new MainActivity().replaceLoginFragment();
+                if (checkValidation()) new MainActivity().replaceLoginFragment();
                 break;
 
             case R.id.confirm_any_account:
@@ -98,21 +97,21 @@ public class ResetPasswordFragment extends Fragment implements View.OnClickListe
                 || getConfirmPassword.equals("")
                 || getConfirmPassword.length() == 0) {
 
-            new CustomToast().Show_Toast(getActivity(), view,
+            new CustomToast().Show_Toast(Objects.requireNonNull(getActivity()), view,
                     "All fields are required");
         valid = false; }
         else if (!m.find()) {
-            new CustomToast().Show_Toast(getActivity(), view,
+            new CustomToast().Show_Toast(Objects.requireNonNull(getActivity()), view,
                     "Email is Incorrect");
             valid = false;
         }
         else if (getConfirmPassword.length() < 6) {
-            new CustomToast().Show_Toast(getActivity(), view,
+            new CustomToast().Show_Toast(Objects.requireNonNull(getActivity()), view,
                     "Password must be at least 6 symbols");
             valid = false;
         }
         else if (!getConfirmPassword.equals(getPassword)) {
-            new CustomToast().Show_Toast(getActivity(), view,
+            new CustomToast().Show_Toast(Objects.requireNonNull(getActivity()), view,
                     "Both password doesn't match");
         valid = false; }
         else

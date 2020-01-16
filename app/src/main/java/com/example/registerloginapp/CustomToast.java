@@ -8,17 +8,18 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 
-public class CustomToast {
+class CustomToast {
 
-    public void Show_Toast(Context context, View view, String error) {
+    void Show_Toast(Context context, View view, String error) {
 
         LayoutInflater inflater = (LayoutInflater) context
                 .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 
+        assert inflater != null;
         View layout = inflater.inflate(R.layout.custom_toast,
                 (ViewGroup) view.findViewById(R.id.toast_root));
 
-        TextView text = (TextView) layout.findViewById(R.id.toast_error);
+        TextView text = layout.findViewById(R.id.toast_error);
         text.setText(error);
 
         Toast toast = new Toast(context);// Get Toast Context

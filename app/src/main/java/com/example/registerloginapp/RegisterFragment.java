@@ -1,14 +1,11 @@
 package com.example.registerloginapp;
 
 import android.annotation.SuppressLint;
-import android.content.Context;
 import android.content.pm.ActivityInfo;
 import android.content.res.ColorStateList;
 import android.content.res.XmlResourceParser;
-import android.net.Uri;
 import android.os.Bundle;
 
-import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
@@ -22,6 +19,7 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.util.Objects;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -31,8 +29,6 @@ public class RegisterFragment extends Fragment implements OnClickListener {
     private  EditText fullName, email, mobileNumber, password;
     private  TextView signUp;
     private  Button signUpButton;
-
-    private EditText emailR;
 
     public RegisterFragment() {
         // Required empty public constructor
@@ -50,19 +46,19 @@ public class RegisterFragment extends Fragment implements OnClickListener {
     }
 
     private void initViews() {
-        fullName = (EditText) view.findViewById(R.id.register_name);
-        email = (EditText) view.findViewById(R.id.register_email);
-        mobileNumber = (EditText) view.findViewById(R.id.register_number);
-        password = (EditText) view.findViewById(R.id.register_password);
-        signUpButton = (Button) view.findViewById(R.id.register_button);
-        signUp = (TextView) view.findViewById(R.id.register_any_account);
+        fullName = view.findViewById(R.id.register_name);
+        email = view.findViewById(R.id.register_email);
+        mobileNumber = view.findViewById(R.id.register_number);
+        password = view.findViewById(R.id.register_password);
+        signUpButton = view.findViewById(R.id.register_button);
+        signUp = view.findViewById(R.id.register_any_account);
 
         @SuppressLint("ResourceType") XmlResourceParser xrp = getResources().getXml(R.drawable.text_selector);
         try {
             ColorStateList csl = ColorStateList.createFromXml(getResources(),
                     xrp);
             signUp.setTextColor(csl);
-        } catch (Exception e) {
+        } catch (Exception ignored) {
         }
     }
 
@@ -83,7 +79,7 @@ public class RegisterFragment extends Fragment implements OnClickListener {
 
     @Override
     public void onResume() {
-        getActivity().setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
+        Objects.requireNonNull(getActivity()).setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
         super.onResume();
     }
 
@@ -91,15 +87,15 @@ public class RegisterFragment extends Fragment implements OnClickListener {
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.register_button:
-                if (checkValidation() == true) { new MainActivity().replaceLoginFragment();
-                    emailR = (EditText) view.findViewById(R.id.register_email);
+                if (checkValidation()) { new MainActivity().replaceLoginFragment();
+                    EditText emailR = view.findViewById(R.id.register_email);
                     String emailr = emailR.getText().toString();
 
                     Bundle bundle = new Bundle();
                     bundle.putString("Email",emailr);
 
 
-                    FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
+                    FragmentManager fragmentManager = Objects.requireNonNull(getActivity()).getSupportFragmentManager();
                     FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
 
                     LoginFragment loginFragment = new LoginFragment();
@@ -133,15 +129,15 @@ public class RegisterFragment extends Fragment implements OnClickListener {
                 || getMobileNumber.equals("") || getMobileNumber.length() == 0
                 || getPassword.equals("") || getPassword.length() == 0)
         {
-            new CustomToast().Show_Toast(getActivity(), view,
+            new CustomToast().Show_Toast(Objects.requireNonNull(getActivity()), view,
                     "All fields are required");
         valid = false; }
         else if (!m.find()) {
-            new CustomToast().Show_Toast(getActivity(), view,
+            new CustomToast().Show_Toast(Objects.requireNonNull(getActivity()), view,
                     "Email is Incorrect");
             valid = false; }
         else if (getPassword.length() < 6) {
-            new CustomToast().Show_Toast(getActivity(), view,
+            new CustomToast().Show_Toast(Objects.requireNonNull(getActivity()), view,
                     "Password must be at least 6 symbols");
             valid = false; }
         else
