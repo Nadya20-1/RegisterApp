@@ -12,6 +12,8 @@ import android.content.res.Resources;
 import android.os.Build;
 import android.os.Bundle;
 import android.util.DisplayMetrics;
+import android.view.View;
+import android.widget.TextView;
 
 import java.util.Locale;
 
@@ -24,7 +26,7 @@ public class MainActivity extends FragmentActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         fragmentManager = getSupportFragmentManager();
-        setAppLocale("en");
+
 
         if (savedInstanceState == null) {
             fragmentManager
@@ -32,6 +34,23 @@ public class MainActivity extends FragmentActivity {
                     .replace(R.id.frameContainer, new LoginFragment(),
                             Utils.LoginFragment).commit();
         }
+
+        TextView btn_ru = findViewById(R.id.button_rus);
+        btn_ru.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                        recreate();
+                        setAppLocale("ru");
+            }
+        });
+        TextView btn_en = findViewById(R.id.button_eng);
+        btn_en.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                recreate();
+                setAppLocale("en");
+            }
+        });
     }
 
     protected void replaceLoginFragment() {

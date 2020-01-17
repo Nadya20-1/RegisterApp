@@ -17,7 +17,29 @@
 
         </FrameLayout>
 
+        <TextView
+            android:id="@+id/button_rus"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="end"
+            android:layout_gravity="end"
+            android:layout_marginTop="20dp"
+            android:layout_marginEnd="20dp"
+            android:clickable="true"
+            android:focusable="true"
+            android:text="@string/button_ru" />
 
+        <TextView
+            android:id="@+id/button_eng"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="end"
+            android:layout_gravity="end"
+            android:layout_marginTop="40dp"
+            android:layout_marginEnd="20dp"
+            android:clickable="true"
+            android:focusable="true"
+            android:text="@string/button_en" />
     </RelativeLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
