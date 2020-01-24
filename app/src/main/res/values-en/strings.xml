@@ -17,4 +17,14 @@
     <string name="button_sign_up">Sign up</string>
     <string name="button_en">English ver.</string>
     <string name="button_ru">Russian ver.</string>
+
+    <string name="login_text">Successful Login</string>
+    <string name="register_text">Registration Completed Successfully</string>
+    <string name="reset_text">Please Activate Your Account</string>
+
+    <string name="login_field">Enter both fields</string>
+    <string name="error_email">Email is Incorrect</string>
+    <string name="error_password">Password must be at least 6 symbols</string>
+    <string name="error_field_required">All fields are required</string>
+    <string name="error_reset">Both password does not match</string>
 </resources>

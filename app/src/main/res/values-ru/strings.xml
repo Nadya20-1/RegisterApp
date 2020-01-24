@@ -17,4 +17,15 @@
     <string name="button_sign_up">Зарегистрироваться</string>
     <string name="button_en">Анг. версия</string>
     <string name="button_ru">Рус. версия</string>
+
+    <string name="login_text">Успешный вход в систему</string>
+    <string name="register_text">Регистрация успешно завершена</string>
+    <string name="reset_text">Пожалуйста, активируйте свою учетную запись</string>
+
+    <string name="login_field">Введите оба поля</string>
+    <string name="error_email">Неверный адрес электронной почты</string>
+    <string name="error_password">Пароль должен содержать не менее 6 символов</string>
+    <string name="error_field_required">Все поля обязательны для заполнения</string>
+    <string name="error_reset">Оба пароля не совпадают</string>
+
 </resources>
