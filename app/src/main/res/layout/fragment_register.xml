@@ -1,135 +1,98 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView
+<RelativeLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/activity_main"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    style="@style/RelativeLayoutStyle"
+    app:layout_constraintBottom_toBottomOf="parent"
+    app:layout_constraintEnd_toEndOf="parent"
+    app:layout_constraintStart_toStartOf="parent"
+    app:layout_constraintTop_toTopOf="parent"
+    android:id="@+id/activity_main">
+
 <FrameLayout
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    tools:context=".RegisterFragment">
+    tools:context=".RegisterFragment"
+    style="@style/linearParent">
 
     <TextView
         android:id="@+id/tv_logo"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_gravity="end"
-        android:layout_marginTop="60dp"
-        android:layout_marginBottom="5dp"
-        android:text="@string/register"
-        android:textAlignment="center"
-        android:textSize="@dimen/text_size_xxlarge" />
+        style="@style/headerTextPrimary"
+        android:text="@string/register" />
 
     <com.google.android.material.textfield.TextInputLayout
-        style="@style/TextInputLayout"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        style="@style/parent"
         android:layout_marginTop="170dp"
-        android:layout_marginLeft="20dp"
-        android:layout_marginRight="20dp"
-        android:hint="@string/username">
+        android:hint="@string/username"
+        android:id="@+id/register_username_input">
     <com.google.android.material.textfield.TextInputEditText
         android:id="@+id/register_name"
-        android:layout_width="match_parent"
-        android:layout_height="50dp"
-        android:layout_marginBottom="10dp"
-        android:background="@drawable/et_custom"
+        style="@style/modifiedEditText"
         android:inputType="textPersonName"
-        android:padding="@dimen/spacing_normal"
-        android:textSize="@dimen/text_size_normal"
         android:importantForAutofill="no" />
     </com.google.android.material.textfield.TextInputLayout>
 
     <com.google.android.material.textfield.TextInputLayout
-        style="@style/TextInputLayout"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="20dp"
-        android:layout_marginTop="240dp"
-        android:layout_marginRight="20dp"
-        android:hint="@string/mobile_number">
+        style="@style/parent"
+        android:layout_marginTop="250dp"
+        android:hint="@string/mobile_number"
+        android:id="@+id/register_number_input">
     <com.google.android.material.textfield.TextInputEditText
         android:id="@+id/register_number"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="10dp"
-        android:background="@drawable/et_custom"
+        style="@style/modifiedEditText"
         android:importantForAutofill="no"
-        android:inputType="phone"
-        android:padding="@dimen/spacing_normal"
-        android:textSize="@dimen/text_size_normal" />
+        android:inputType="phone" />
     </com.google.android.material.textfield.TextInputLayout>
 
     <com.google.android.material.textfield.TextInputLayout
-        style="@style/TextInputLayout"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="310dp"
-        android:layout_marginLeft="20dp"
-        android:layout_marginRight="20dp"
-        android:hint="@string/e_mail">
+        style="@style/parent"
+        android:layout_marginTop="330dp"
+        android:hint="@string/e_mail"
+        android:id="@+id/register_email_input">
     <com.google.android.material.textfield.TextInputEditText
         android:id="@+id/register_email"
-        android:layout_width="match_parent"
-        android:layout_height="50dp"
-        android:layout_marginBottom="10dp"
-        android:padding="@dimen/spacing_normal"
+        style="@style/modifiedEditText"
         android:inputType="textEmailAddress"
-        android:background="@drawable/et_custom"
-        android:textSize="@dimen/text_size_normal"
         android:importantForAutofill="no"/>
     </com.google.android.material.textfield.TextInputLayout>
 
     <com.google.android.material.textfield.TextInputLayout
-        style="@style/TextInputLayout"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="380dp"
-        android:layout_marginLeft="20dp"
-        android:layout_marginRight="20dp"
+        style="@style/parent"
+        android:layout_marginTop="410dp"
+        app:errorEnabled="true"
+        android:id="@+id/register_password_input"
+        app:passwordToggleEnabled="true"
         android:hint="@string/password">
     <com.google.android.material.textfield.TextInputEditText
         android:id="@+id/register_password"
-        android:layout_width="match_parent"
-        android:layout_height="50dp"
-        android:layout_marginBottom="10dp"
-        android:padding="@dimen/spacing_normal"
+        style="@style/modifiedEditText"
         android:inputType="textPassword"
-        android:background="@drawable/et_custom"
-        android:textSize="@dimen/text_size_normal"
         android:importantForAutofill="no"/>
     </com.google.android.material.textfield.TextInputLayout>
 
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginTop="430dp">
-
+        android:layout_marginTop="460dp">
 
         <com.google.android.material.button.MaterialButton
             android:id="@+id/register_button"
-            style="@style/Widget.MaterialComponents.Button"
-            android:layout_width="match_parent"
-            android:layout_height="@dimen/button"
-            android:layout_marginLeft="20dp"
+            android:onClick="onClick"
+            app:cornerRadius="27dp"
+            app:backgroundTint="@color/button"
+            style="@style/loginButton"
+            android:theme="@style/ButtonStyle"
             android:layout_marginTop="40dp"
-            android:layout_marginRight="20dp"
-            android:background="@drawable/btn_custom"
-            android:text="@string/button_sign_up"
-            android:textColor="@android:color/white" />
+            android:text="@string/button_sign_up" />
 
         <TextView
             android:id="@+id/register_any_account"
-            android:gravity="end"
-            android:layout_gravity="end"
+            android:onClick="onClick"
+            style="@style/TextViewStyle"
             android:layout_alignEnd="@id/register_button"
-            android:layout_marginTop="100dp"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_marginTop="110dp"
             android:text="@string/sign_in" />
+
     </RelativeLayout>
 
-
 </FrameLayout>
-    </ScrollView>
+    </RelativeLayout>

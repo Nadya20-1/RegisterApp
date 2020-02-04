@@ -1,46 +1,40 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/stateConstraintLayout"
+<ScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/frameContainer"
+    android:layout_width="fill_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_height="fill_parent">
+
+<LinearLayout
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="wrap_content"
+    android:focusableInTouchMode="true"
+    android:orientation="vertical">
 
-    <RelativeLayout
+    <androidx.appcompat.widget.AppCompatSpinner
+        android:id="@+id/language_spinner"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:spinnerMode="dropdown"
+        android:spinnerStyle="@android:style/Widget.Spinner.DropDown"/>
 
+    <Switch
+        style="@style/Switcher"
+        android:id="@+id/switch_btn"
+        android:onClick="onClick"
+        android:text="@string/switcher" />
 
-        <FrameLayout
-            android:id="@+id/frameContainer"
-            android:layout_width="fill_parent"
-            android:layout_height="fill_parent" >
+    <com.example.registerloginapp.CustomViewPager
+        android:id="@+id/viewpager"
+        android:layout_width="match_parent"
+        android:layout_height="680dp"
+        android:background="@drawable/login_back"/>
 
+</LinearLayout>
 
-        </FrameLayout>
-
-        <TextView
-            android:id="@+id/button_rus"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:gravity="end"
-            android:layout_gravity="end"
-            android:layout_marginTop="20dp"
-            android:layout_marginEnd="20dp"
-            android:clickable="true"
-            android:focusable="true"
-            android:text="@string/button_ru" />
-
-        <TextView
-            android:id="@+id/button_eng"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:gravity="end"
-            android:layout_gravity="end"
-            android:layout_marginTop="40dp"
-            android:layout_marginEnd="20dp"
-            android:clickable="true"
-            android:focusable="true"
-            android:text="@string/button_en" />
-    </RelativeLayout>
-
-</androidx.constraintlayout.widget.ConstraintLayout>
-
+</ScrollView>
