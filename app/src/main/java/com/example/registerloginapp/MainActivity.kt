@@ -20,14 +20,11 @@ import java.util.*
 
 
 class MainActivity : FragmentActivity() {
-    private var pagerAdapter : PagerAdapter? = null
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        pagerAdapter = PagerAdapter(supportFragmentManager)
-        viewpager.adapter = pagerAdapter
-
+        viewpager.adapter = PagerAdapter(supportFragmentManager)
         viewpager.setPagingEnabled(false)
 
         val option = arrayOf(getText(R.string.select),getText(R.string.button_en),getText(R.string.button_ru))
@@ -50,20 +47,17 @@ class MainActivity : FragmentActivity() {
     }
 
     private fun replaceLoginFragment() {
-        pagerAdapter = PagerAdapter(supportFragmentManager)
-        viewpager.adapter = pagerAdapter
+        viewpager.adapter = PagerAdapter(supportFragmentManager)
         viewpager.currentItem = 0
     }
 
     private fun replaceRegisterFragment() {
-        pagerAdapter = PagerAdapter(supportFragmentManager)
-        viewpager.adapter = pagerAdapter
+        viewpager.adapter = PagerAdapter(supportFragmentManager)
         viewpager.currentItem = 1
     }
 
     private fun replaceResetPasswordFragment() {
-        pagerAdapter = PagerAdapter(supportFragmentManager)
-        viewpager.adapter = pagerAdapter
+        viewpager.adapter = PagerAdapter(supportFragmentManager)
         viewpager.currentItem = 2
     }
 
@@ -106,12 +100,8 @@ class MainActivity : FragmentActivity() {
                 bundle.putString("Email", setText)
                 val loginFragment = LoginFragment()
                 loginFragment.arguments = bundle
-                if (loginFragment.arguments != null) {
-                val result = loginFragment.arguments!!.getString("Email")
-                login_email.setText(result.toString())}
-                else {
-                    login_email.setText("")
-                    }
+                loginFragment.arguments?.let { val result = loginFragment.arguments!!.getString("Email")
+                    login_email.setText(result.toString()) } ?: login_email.setText("")
             }
             R.id.register_any_account -> replaceLoginFragment()
             //ResetPassword
@@ -129,9 +119,11 @@ class MainActivity : FragmentActivity() {
         login_button.isEnabled = false
         val progressDialog = ProgressDialog(this,
                 R.style.AppTheme_Dark_Dialog)
-        progressDialog.isIndeterminate = true
-        progressDialog.setMessage(getText(R.string.authenticating))
-        progressDialog.show()
+        progressDialog.apply {
+           isIndeterminate = true
+           setMessage(getText(R.string.authenticating))
+           show()
+        }
         Handler().postDelayed(
                 {
                     onLoginSuccess()
@@ -147,7 +139,7 @@ class MainActivity : FragmentActivity() {
     private fun checkLoginEmailValidation(): Boolean {
         var valid = true
         val getEmailId = login_email.text.toString()
-        if ( getEmailId.isEmpty()  ) {
+        if ( getEmailId.isEmpty() ) {
             login_email_input.error = getText(R.string.error_field_required)
             valid = false
         } else if (!Patterns.EMAIL_ADDRESS.matcher(getEmailId).matches() ) {
@@ -161,14 +153,17 @@ class MainActivity : FragmentActivity() {
     private fun checkLoginPasswordValidation(): Boolean {
         var valid = true
         val getPassword = login_password.text.toString()
-        if ( getPassword.isEmpty() || getPassword == "") {
-            login_password_input.error = getText(R.string.error_field_required)
-            valid = false
-        } else if ( getPassword.length < 6  ) {
-            login_password_input.error = getText(R.string.error_password)
-            valid = false
-        } else
-           login_password_input.error = null
+        when {
+            getPassword.isEmpty() -> {
+                login_password_input.error = getText(R.string.error_field_required)
+                valid = false
+            }
+            getPassword.length < 6 -> {
+                login_password_input.error = getText(R.string.error_password)
+                valid = false
+            }
+            else -> login_password_input.error = null
+        }
         return valid
     }
 
@@ -178,7 +173,7 @@ class MainActivity : FragmentActivity() {
         if ( getEmailId.isEmpty() ) {
             reset_email_input.error = getText(R.string.error_field_required)
             valid = false
-        } else if (!Patterns.EMAIL_ADDRESS.matcher(getEmailId).matches()  ) {
+        } else if (!Patterns.EMAIL_ADDRESS.matcher(getEmailId).matches() ) {
             reset_email_input.error = getText(R.string.error_email)
             valid = false
         } else
@@ -190,17 +185,21 @@ class MainActivity : FragmentActivity() {
         var valid = true
         val getConfirmPassword = confirm_reset_password.text.toString()
         val getPassword = confirm_password.text.toString()
-        if ( getPassword.isEmpty() || getPassword == "") {
-            reset_password_input.error = getText(R.string.error_field_required)
-            valid = false
-        } else if ( getPassword.length < 6  ) {
-            reset_password_input.error = getText(R.string.error_password)
-            valid = false
-        } else if (getConfirmPassword != getPassword) {
-            reset_password_input.error = getText(R.string.error_reset)
-            valid = false
-        } else
-            reset_password_input.error = null
+        when {
+            getPassword.isEmpty() -> {
+                reset_password_input.error = getText(R.string.error_field_required)
+                valid = false
+            }
+            getPassword.length < 6 -> {
+                reset_password_input.error = getText(R.string.error_password)
+                valid = false
+            }
+            getConfirmPassword != getPassword -> {
+                reset_password_input.error = getText(R.string.error_reset)
+                valid = false
+            }
+            else -> reset_password_input.error = null
+        }
         return valid
     }
 
@@ -208,17 +207,21 @@ class MainActivity : FragmentActivity() {
         var valid = true
         val getConfirmPassword = confirm_reset_password.text.toString()
         val getPassword = confirm_password.text.toString()
-        if ( getConfirmPassword.isEmpty() || getConfirmPassword == "") {
-            reset_confirm_input.error = getText(R.string.error_field_required)
-            valid = false
-        } else if ( getConfirmPassword.length < 6  ) {
-            reset_confirm_input.error = getText(R.string.error_password)
-            valid = false
-        } else if (getConfirmPassword != getPassword) {
-            reset_confirm_input.error = getText(R.string.error_reset)
-            valid = false
-        } else
-            reset_confirm_input.error = null
+        when {
+            getConfirmPassword.isEmpty() -> {
+                reset_confirm_input.error = getText(R.string.error_field_required)
+                valid = false
+            }
+            getConfirmPassword.length < 6 -> {
+                reset_confirm_input.error = getText(R.string.error_password)
+                valid = false
+            }
+            getConfirmPassword != getPassword -> {
+                reset_confirm_input.error = getText(R.string.error_reset)
+                valid = false
+            }
+            else -> reset_confirm_input.error = null
+        }
         return valid
     }
 
@@ -239,21 +242,24 @@ class MainActivity : FragmentActivity() {
     private fun checkRegisterPasswordValidation(): Boolean {
         var valid = true
         val getPassword = register_password.text.toString()
-        if ( getPassword.isEmpty() || getPassword == "") {
-            register_password_input.error = getText(R.string.error_field_required)
-            valid = false
-        } else if ( getPassword.length < 6  ) {
-            register_password_input.error = getText(R.string.error_password)
-            valid = false
-        } else
-            register_password_input.error = null
+        when {
+            getPassword.isEmpty() -> {
+                register_password_input.error = getText(R.string.error_field_required)
+                valid = false
+            }
+            getPassword.length < 6 -> {
+                register_password_input.error = getText(R.string.error_password)
+                valid = false
+            }
+            else -> register_password_input.error = null
+        }
         return valid
     }
 
     private fun checkRegisterNameValidation(): Boolean {
         var valid = true
         val getFullName = register_name.text.toString()
-        if ( getFullName == "" || getFullName.isEmpty()) {
+        if ( getFullName.isEmpty()) {
             register_username_input.error = getText(R.string.error_field_required)
             valid = false
         } else
@@ -264,7 +270,7 @@ class MainActivity : FragmentActivity() {
     private fun checkRegisterMobileValidation(): Boolean {
         var valid = true
         val getMobileNumber = register_number.text.toString()
-        if (  getMobileNumber == "" || getMobileNumber.isEmpty() ) {
+        if ( getMobileNumber.isEmpty() ) {
             register_number_input.error = getText(R.string.error_field_required)
             valid = false
         } else
