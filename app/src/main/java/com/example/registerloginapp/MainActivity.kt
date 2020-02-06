@@ -94,10 +94,10 @@ class MainActivity : FragmentActivity() {
             //Register
             R.id.register_button -> if (checkRegisterEmailValidation() and checkRegisterPasswordValidation() and checkRegisterNameValidation() and checkRegisterMobileValidation()) {
                 Toast.makeText(this, R.string.register_text, Toast.LENGTH_SHORT).show()
-                replaceLoginFragment()
                 val setText = register_email.text.toString()
                 val bundle = Bundle()
                 bundle.putString("Email", setText)
+                replaceLoginFragment()
                 val loginFragment = LoginFragment()
                 loginFragment.arguments = bundle
                 loginFragment.arguments?.let { val result = loginFragment.arguments!!.getString("Email")
