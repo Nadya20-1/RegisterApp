@@ -59,7 +59,7 @@
             android:onClick="onClick"
             android:text="@string/forget_password" />
 
-        <com.google.android.material.button.MaterialButton
+       <!-- <com.google.android.material.button.MaterialButton
             android:id="@+id/login_button"
             style="@style/loginButton"
             app:cornerRadius="27dp"
@@ -67,6 +67,13 @@
             android:layout_marginTop="45dp"
             android:onClick="onClick"
             android:theme="@style/ButtonStyle"
+            android:text="@string/button_login" />-->
+
+        <Button
+            android:id="@+id/login_button"
+            style="@style/loginButton"
+            android:layout_marginTop="47dp"
+            android:onClick="onClick"
             android:text="@string/button_login" />
 
         <TextView

@@ -66,12 +66,21 @@
         <item name="android:layout_height">wrap_content</item>
     </style>
 
-    <style name="loginButton">
+   <!-- <style name="loginButton">
         <item name="android:textColor">@color/whiteTextColor</item>
         <item name="android:textStyle">bold</item>
         <item name="android:layout_width">182dp</item>
         <item name="android:layout_height">63dp</item>
         <item name="android:layout_alignParentEnd">true</item>
+    </style>-->
+
+    <style name="loginButton">
+        <item name="android:textColor">@color/whiteTextColor</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:layout_width">182dp</item>
+        <item name="android:layout_height">55dp</item>
+        <item name="android:layout_alignParentEnd">true</item>
+        <item name="android:background">@drawable/button_selector</item>
     </style>
 
     <style name="ButtonStyle" parent="Theme.MaterialComponents">

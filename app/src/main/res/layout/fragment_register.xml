@@ -74,7 +74,7 @@
         android:layout_height="match_parent"
         android:layout_marginTop="460dp">
 
-        <com.google.android.material.button.MaterialButton
+     <!--   <com.google.android.material.button.MaterialButton
             android:id="@+id/register_button"
             android:onClick="onClick"
             app:cornerRadius="27dp"
@@ -82,6 +82,13 @@
             style="@style/loginButton"
             android:theme="@style/ButtonStyle"
             android:layout_marginTop="40dp"
+            android:text="@string/button_sign_up" />-->
+
+        <Button
+            android:id="@+id/register_button"
+            style="@style/loginButton"
+            android:layout_marginTop="45dp"
+            android:onClick="onClick"
             android:text="@string/button_sign_up" />
 
         <TextView

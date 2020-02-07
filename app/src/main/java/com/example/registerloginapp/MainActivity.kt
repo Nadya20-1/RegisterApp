@@ -28,7 +28,7 @@ class MainActivity : FragmentActivity() {
         viewpager.setPagingEnabled(false)
 
         val option = arrayOf(getText(R.string.select),getText(R.string.button_en),getText(R.string.button_ru))
-        val adapter  = ArrayAdapter(this,R.layout.support_simple_spinner_dropdown_item,option)
+        val adapter = ArrayAdapter(this,R.layout.support_simple_spinner_dropdown_item,option)
         language_spinner.adapter = adapter
 
         language_spinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener{
@@ -46,19 +46,33 @@ class MainActivity : FragmentActivity() {
         }
     }
 
-    private fun replaceLoginFragment() {
-        viewpager.adapter = PagerAdapter(supportFragmentManager)
-        viewpager.currentItem = 0
+    private fun loginClear(){
+        login_email.text!!.clear()
+        login_password.text!!.clear()
     }
 
-    private fun replaceRegisterFragment() {
-        viewpager.adapter = PagerAdapter(supportFragmentManager)
-        viewpager.currentItem = 1
+    private fun registerClear(){
+        register_email.text!!.clear()
+        register_password.text!!.clear()
+        register_name.text!!.clear()
+        register_number.text!!.clear()
     }
 
-    private fun replaceResetPasswordFragment() {
-        viewpager.adapter = PagerAdapter(supportFragmentManager)
-        viewpager.currentItem = 2
+    private fun resetClear(){
+        confirm_reset_password.text!!.clear()
+        confirm_email.text!!.clear()
+        confirm_password.text!!.clear()
+    }
+
+    enum class Fragments {
+        Login,
+        Register,
+        ResetPassword
+    }
+
+    private fun replaceFragments(fragment: Fragments)
+    {
+        viewpager.currentItem = fragment.ordinal
     }
 
     override fun onBackPressed() {
@@ -87,28 +101,25 @@ class MainActivity : FragmentActivity() {
             //Login
             R.id.login_button -> if (checkLoginEmailValidation() and checkLoginPasswordValidation()) {
                 login()
-              replaceLoginFragment()
+                loginClear()
             }
-            R.id.login_forget_password -> replaceResetPasswordFragment()
-            R.id.login_any_account -> replaceRegisterFragment()
+            R.id.login_forget_password -> replaceFragments(Fragments.ResetPassword)
+            R.id.login_any_account -> replaceFragments(Fragments.Register)
             //Register
             R.id.register_button -> if (checkRegisterEmailValidation() and checkRegisterPasswordValidation() and checkRegisterNameValidation() and checkRegisterMobileValidation()) {
                 Toast.makeText(this, R.string.register_text, Toast.LENGTH_SHORT).show()
-                val setText = register_email.text.toString()
-                val bundle = Bundle()
-                bundle.putString("Email", setText)
-                replaceLoginFragment()
-                val loginFragment = LoginFragment()
-                loginFragment.arguments = bundle
-                loginFragment.arguments?.let { val result = loginFragment.arguments!!.getString("Email")
-                    login_email.setText(result.toString()) } ?: login_email.setText("")
+                replaceFragments(Fragments.Login)
+                login_email.setText(register_email.text.toString())
+                registerClear()
             }
-            R.id.register_any_account -> replaceLoginFragment()
+            R.id.register_any_account -> replaceFragments(Fragments.Login)
             //ResetPassword
             R.id.confirm_button -> if (checkResetPasswordEmailValidation() and checkConfirmPasswordValidation() and  checkResetPasswordValidation()) {
                 Toast.makeText(this, R.string.reset_text, Toast.LENGTH_SHORT).show()
-                replaceLoginFragment()   }
-            R.id.confirm_any_account -> replaceRegisterFragment()
+                replaceFragments(Fragments.Login)
+                resetClear()
+            }
+            R.id.confirm_any_account -> replaceFragments(Fragments.Register)
             //Switcher
             R.id.switch_btn -> if (switch_btn.isChecked) {viewpager.setPagingEnabled(true)} else {viewpager.setPagingEnabled(false)}
         }
@@ -116,7 +127,6 @@ class MainActivity : FragmentActivity() {
 
    @Suppress("DEPRECATION")
    private fun login() {
-        login_button.isEnabled = false
         val progressDialog = ProgressDialog(this,
                 R.style.AppTheme_Dark_Dialog)
         progressDialog.apply {
@@ -133,7 +143,7 @@ class MainActivity : FragmentActivity() {
 
     private fun onLoginSuccess() {
         Toast.makeText(this, R.string.login_text, Toast.LENGTH_SHORT).show()
-        replaceLoginFragment()
+        replaceFragments(Fragments.Login)
     }
 
     private fun checkLoginEmailValidation(): Boolean {
